@@ -47,10 +47,10 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'docker-compose down || true'
+                        sh 'docker-compose down -v || true'
                         sh 'docker-compose up -d --build'
                     } else {
-                        bat 'docker-compose down || exit /b 0'
+                        bat 'docker-compose down -v || exit /b 0'
                         bat 'docker-compose up -d --build'
                     }
                 }

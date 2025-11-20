@@ -484,12 +484,364 @@
       "aiTool": "AI Assistant",
       "detectionMethod": "REALTIME_SPEED_ANALYSIS",
       "lineCount": 78
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/resources/static/js/main.js",
+      "timestamp": 1763606121473,
+      "startOffset": 2265,
+      "endOffset": 3548,
+      "codeContent": "const user \u003d getUser();\n  if (!user) {\n    window.location.href \u003d \u0027login.html\u0027;\n    return;\n  }\n\n  const query \u003d `\n    query {\n      userById(id: \"${user.id}\") {\n        playlists {\n          id\n          name\n          videos {\n            id\n            name\n            link\n            likes\n            favorite\n          }\n        }\n      }\n    }\n  `;\n\n  const res \u003d await fetch(GRAPHQL_URL, {\n    method: \u0027POST\u0027,\n    headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n    body: JSON.stringify({ query })\n  });\n\n  const data \u003d await res.json();\n  const playlists \u003d data.data.userById.playlists;\n  const container \u003d document.getElementById(\u0027playlists\u0027);\n\n  playlists.forEach(pl \u003d\u003e {\n    const card \u003d document.createElement(\u0027div\u0027);\n    card.className \u003d \u0027playlist-card\u0027;\n\n    card.innerHTML \u003d `\n      \u003cdiv class\u003d\"playlist-title\"\u003e${pl.name}\u003c/div\u003e\n      \u003cdiv class\u003d\"videos-list\" id\u003d\"videos-${pl.id}\"\u003e\n        ${pl.videos.map(v \u003d\u003e `\u003cp\u003e${v.name}\u003c/p\u003e`).join(\u0027\u0027)}\n      \u003c/div\u003e\n    `;\n\n    // Toggle desplegable al hacer clic\n    card.addEventListener(\u0027click\u0027, () \u003d\u003e {\n      const videosDiv \u003d card.querySelector(\u0027.videos-list\u0027);\n      videosDiv.classList.toggle(\u0027active\u0027);\n    });\n\n    container.appendChild(card);\n  });\n}\n\nif (document.getElementById(\u0027playlists\u0027)) {\n  loadPlaylists();\n}\n",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 59
+    },
+    {
+      "filePath": "/UserController.java",
+      "timestamp": 1763606689636,
+      "startOffset": 1345,
+      "endOffset": 1365,
+      "codeContent": "IntellijIdeaRulezzz ",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/resources/static/js/main.js",
+      "timestamp": 1763607271337,
+      "startOffset": 2232,
+      "endOffset": 5729,
+      "codeContent": "let selectedPlaylistId \u003d null;\n\n// Helpers de sesión\nfunction setUser(user) { localStorage.setItem(\u0027user\u0027, JSON.stringify(user)); }\nfunction getUser() { return JSON.parse(localStorage.getItem(\u0027user\u0027)); }\nfunction logout() { localStorage.removeItem(\u0027user\u0027); window.location.href \u003d \u0027login.html\u0027; }\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Modales \u003d\u003d\u003d\u003d\u003d\u003d\nfunction openPlaylistModal() {\n  document.getElementById(\u0027playlistModal\u0027).style.display \u003d \u0027flex\u0027;\n}\nfunction closePlaylistModal() {\n  document.getElementById(\u0027playlistModal\u0027).style.display \u003d \u0027none\u0027;\n}\nfunction openVideoModal(playlistId) {\n  selectedPlaylistId \u003d playlistId;\n  document.getElementById(\u0027videoModal\u0027).style.display \u003d \u0027flex\u0027;\n}\nfunction closeVideoModal() {\n  document.getElementById(\u0027videoModal\u0027).style.display \u003d \u0027none\u0027;\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Crear Playlist \u003d\u003d\u003d\u003d\u003d\u003d\nasync function createPlaylist() {\n  const user \u003d getUser();\n  const name \u003d document.getElementById(\u0027playlistName\u0027).value;\n\n  const query \u003d `\n    mutation {\n      addPlaylist(userId: \"${user.id}\", name: \"${name}\") {\n        id\n        name\n      }\n    }\n  `;\n\n  const res \u003d await fetch(GRAPHQL_URL, {\n    method: \u0027POST\u0027,\n    headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n    body: JSON.stringify({ query })\n  });\n\n  const data \u003d await res.json();\n  if (data.data.addPlaylist) {\n    closePlaylistModal();\n    loadPlaylists();\n  }\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Crear Video \u003d\u003d\u003d\u003d\u003d\u003d\nasync function createVideo() {\n  const user \u003d getUser();\n  const name \u003d document.getElementById(\u0027videoName\u0027).value;\n  const link \u003d document.getElementById(\u0027videoLink\u0027).value;\n\n  const query \u003d `\n    mutation {\n      addVideo(userId: \"${user.id}\", playlistId: \"${selectedPlaylistId}\", name: \"${name}\", link: \"${link}\") {\n        id\n        name\n        link\n      }\n    }\n  `;\n\n  const res \u003d await fetch(GRAPHQL_URL, {\n    method: \u0027POST\u0027,\n    headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n    body: JSON.stringify({ query })\n  });\n\n  const data \u003d await res.json();\n  if (data.data.addVideo) {\n    closeVideoModal();\n    loadPlaylists();\n  }\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Render Playlists \u003d\u003d\u003d\u003d\u003d\u003d\nasync function loadPlaylists() {\n  const user \u003d getUser();\n  if (!user) {\n    window.location.href \u003d \u0027login.html\u0027;\n    return;\n  }\n\n  const query \u003d `\n    query {\n      userById(id: \"${user.id}\") {\n        playlists {\n          id\n          name\n          videos {\n            id\n            name\n            link\n          }\n        }\n      }\n    }\n  `;\n\n  const res \u003d await fetch(GRAPHQL_URL, {\n    method: \u0027POST\u0027,\n    headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n    body: JSON.stringify({ query })\n  });\n\n  const data \u003d await res.json();\n  const playlists \u003d data.data.userById.playlists;\n  const container \u003d document.getElementById(\u0027playlists\u0027);\n  container.innerHTML \u003d \u0027\u0027;\n\n  playlists.forEach(pl \u003d\u003e {\n    const card \u003d document.createElement(\u0027div\u0027);\n    card.className \u003d \u0027playlist-card\u0027;\n\n    card.innerHTML \u003d `\n      \u003cdiv class\u003d\"playlist-title\"\u003e\n        ${pl.name}\n        \u003cspan style\u003d\"cursor:pointer; color:#cc0000; font-size:20px;\" onclick\u003d\"openVideoModal(\u0027${pl.id}\u0027)\"\u003e+\u003c/span\u003e\n      \u003c/div\u003e\n      \u003cdiv class\u003d\"videos-list\"\u003e\n        ${pl.videos.map(v \u003d\u003e `\u003cp\u003e${v.name}\u003c/p\u003e`).join(\u0027\u0027)}\n      \u003c/div\u003e\n    `;\n\n    card.addEventListener(\u0027click\u0027, (e) \u003d\u003e {\n      if (e.target.tagName !\u003d\u003d \u0027SPAN\u0027) { // evitar conflicto con el botón +\n        const videosDiv \u003d card.querySelector(\u0027.videos-list\u0027);\n        videosDiv.classList.toggle(\u0027active\u0027);\n      }\n    });\n\n    container.appendChild(card);\n  });\n}\n\nif (document.getElementById(\u0027playlists\u0027)) {\n  loadPlaylists();\n}",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 141
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/resolver/UserController.java",
+      "timestamp": 1763607511026,
+      "startOffset": 0,
+      "endOffset": 3557,
+      "codeContent": "package webapp.progAvanzada.resolver;\n\nimport lombok.RequiredArgsConstructor;\nimport org.springframework.graphql.data.method.annotation.Argument;\nimport org.springframework.graphql.data.method.annotation.MutationMapping;\nimport org.springframework.graphql.data.method.annotation.QueryMapping;\nimport org.springframework.stereotype.Controller;\nimport webapp.progAvanzada.entities.Playlist;\nimport webapp.progAvanzada.entities.User;\nimport webapp.progAvanzada.entities.Video;\nimport webapp.progAvanzada.repo.UserRepository;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\n@Controller\n@RequiredArgsConstructor\npublic class UserController {\n\n    private final UserRepository userRepository;\n\n    @QueryMapping\n    public List\u003cUser\u003e users()\n    {\n        return userRepository.findAll();\n    }\n\n    @QueryMapping\n    public User userById(@Argument String id)\n    {\n        return userRepository.findById(id).orElse(null);\n    }\n\n    @QueryMapping\n    public User login(@Argument String username, @Argument String password)\n    {\n        return userRepository.findByUsernameAndPassword(username, password).orElse(null);\n    }\n\n    @MutationMapping\n    public User register(@Argument String username, @Argument String password)\n    {\n        User user \u003d new User();\n        user.setUsername(username);\n        user.setPassword(password);\n        user.setPlaylists(new ArrayList\u003c\u003e());\n        return userRepository.save(user);\n    }\n\n    @MutationMapping\n    public Playlist addPlaylist(@Argument String userId, @Argument String name)\n    {\n        User user \u003d userRepository.findById(userId).orElse(null);\n        Playlist newPlaylist \u003d new Playlist();\n        newPlaylist.setName(name);\n        newPlaylist.setVideos(new ArrayList\u003c\u003e());\n        user.getPlaylists().add(newPlaylist);\n        userRepository.save(user);\n        return newPlaylist;\n    }\n\n    @MutationMapping\n    public Video addVideo(@Argument String userId, @Argument String playlistId, @Argument String name, @Argument String link)\n    {\n        User user \u003d userRepository.findById(userId).orElse(null);\n\n        Video newVideo \u003d new Video();\n        newVideo.setName(name);\n        newVideo.setLink(link);\n        newVideo.setFavorite(false);\n        newVideo.setLikes(0);\n\n        Playlist playlist \u003d user.getPlaylists().stream().filter(p -\u003e p.getId().equals(playlistId)).findFirst().get();\n        playlist.getVideos().add(newVideo);\n        userRepository.save(user);\n\n        return newVideo;\n    }\n\n    @MutationMapping\n    public Video likeVideo(@Argument String userId, @Argument String playlistId, @Argument String videoId)\n    {\n        User user \u003d userRepository.findById(userId).orElse(null);\n        Playlist playlist \u003d user.getPlaylists().stream().filter(p -\u003e p.getId().equals(playlistId)).findFirst().get();\n        Video video \u003d playlist.getVideos().stream().filter(v -\u003e v.getId().equals(videoId)).findFirst().get();\n        video.setLikes(video.getLikes() + 1);\n        userRepository.save(user);\n        return video;\n    }\n\n    @MutationMapping\n    public Video toggleFavorite(@Argument String userId, @Argument String playlistId, @Argument String videoId)\n    {\n        User user \u003d userRepository.findById(userId).orElse(null);\n        Playlist playlist \u003d user.getPlaylists().stream().filter(p -\u003e p.getId().equals(playlistId)).findFirst().get();\n        Video video \u003d playlist.getVideos().stream().filter(v -\u003e v.getId().equals(videoId)).findFirst().get();\n        video.setFavorite(!video.isFavorite());\n        userRepository.save(user);\n        return video;\n    }\n\n}\n",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 103
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/resolver/UserController.java",
+      "timestamp": 1763608024644,
+      "startOffset": 573,
+      "endOffset": 595,
+      "codeContent": "import java.util.UUID;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "/User.java",
+      "timestamp": 1763608062828,
+      "startOffset": 381,
+      "endOffset": 401,
+      "codeContent": "IntellijIdeaRulezzz ",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763608063357,
+      "startOffset": 170,
+      "endOffset": 197,
+      "codeContent": "import java.util.ArrayList;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "/Playlist.java",
+      "timestamp": 1763608067626,
+      "startOffset": 251,
+      "endOffset": 271,
+      "codeContent": "IntellijIdeaRulezzz ",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Playlist.java",
+      "timestamp": 1763608067936,
+      "startOffset": 251,
+      "endOffset": 272,
+      "codeContent": "ew ArrayList\u003cVideo\u003e()",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Playlist.java",
+      "timestamp": 1763608067954,
+      "startOffset": 107,
+      "endOffset": 134,
+      "codeContent": "import java.util.ArrayList;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/resources/static/js/main.js",
+      "timestamp": 1763608313579,
+      "startOffset": 4141,
+      "endOffset": 5811,
+      "codeContent": "const user \u003d getUser();\n  if (!user) {\n    window.location.href \u003d \u0027login.html\u0027;\n    return;\n  }\n\n  const query \u003d `\n    query {\n      userById(id: \"${user.id}\") {\n        id\n        username\n        playlists {\n          id\n          name\n          videos {\n            id\n            name\n            link\n          }\n        }\n      }\n    }\n  `;\n\n  const res \u003d await fetch(GRAPHQL_URL, {\n    method: \u0027POST\u0027,\n    headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n    body: JSON.stringify({ query })\n  });\n\n  const data \u003d await res.json();\n  console.log(\"Respuesta GraphQL:\", data); // 👈 para depurar\n\n  if (!data.data.userById) {\n    document.getElementById(\u0027playlists\u0027).innerHTML \u003d \"\u003cp\u003eNo hay playlists aún\u003c/p\u003e\";\n    return;\n  }\n\n  const playlists \u003d data.data.userById.playlists || [];\n  const container \u003d document.getElementById(\u0027playlists\u0027);\n  container.innerHTML \u003d \u0027\u0027;\n\n  playlists.forEach(pl \u003d\u003e {\n    const card \u003d document.createElement(\u0027div\u0027);\n    card.className \u003d \u0027playlist-card\u0027;\n\n    const videosHtml \u003d pl.videos \u0026\u0026 pl.videos.length \u003e 0\n      ? pl.videos.map(v \u003d\u003e `\u003cp\u003e${v.name}\u003c/p\u003e`).join(\u0027\u0027)\n      : \"\u003cp\u003eEsta playlist aún no tiene videos\u003c/p\u003e\";\n\n    card.innerHTML \u003d `\n      \u003cdiv class\u003d\"playlist-title\"\u003e\n        ${pl.name}\n        \u003cspan style\u003d\"cursor:pointer; color:#cc0000; font-size:20px;\" onclick\u003d\"openVideoModal(\u0027${pl.id}\u0027)\"\u003e+\u003c/span\u003e\n      \u003c/div\u003e\n      \u003cdiv class\u003d\"videos-list\"\u003e${videosHtml}\u003c/div\u003e\n    `;\n\n    card.addEventListener(\u0027click\u0027, (e) \u003d\u003e {\n      if (e.target.tagName !\u003d\u003d \u0027SPAN\u0027) {\n        const videosDiv \u003d card.querySelector(\u0027.videos-list\u0027);\n        videosDiv.classList.toggle(\u0027active\u0027);\n      }\n    });\n\n    container.appendChild(card);\n  });\n}\n",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 69
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/resources/static/js/main.js",
+      "timestamp": 1763610866167,
+      "startOffset": 6261,
+      "endOffset": 8315,
+      "codeContent": "// \u003d\u003d\u003d\u003d\u003d\u003d Reproductor de video \u003d\u003d\u003d\u003d\u003d\u003d\nasync function loadVideoPage() {\n    const videoId \u003d new URLSearchParams(window.location.search).get(\"video\");\n    const user \u003d getUser();\n    if (!user || !videoId) {\n        window.location.href \u003d \u0027login.html\u0027;\n        return;\n    }\n\n    const query \u003d `\n    query {\n      userById(id: \"${user.id}\") {\n        playlists {\n          id\n          name\n          videos {\n            id\n            name\n            link\n          }\n        }\n      }\n    }\n    `;\n\n    const res \u003d await fetch(GRAPHQL_URL, {\n        method: \u0027POST\u0027,\n        headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n        body: JSON.stringify({ query })\n    });\n\n    const data \u003d await res.json();\n    const allPlaylists \u003d data.data.userById?.playlists || [];\n\n    // Buscar el video y su playlist\n    let currentVideo \u003d null;\n    let currentPlaylist \u003d null;\n\n    for (const pl of allPlaylists) {\n        const match \u003d pl.videos.find(v \u003d\u003e v.id \u003d\u003d\u003d videoId);\n        if (match) {\n            currentVideo \u003d match;\n            currentPlaylist \u003d pl;\n            break;\n        }\n    }\n\n    if (!currentVideo) {\n        document.getElementById(\"videoTitle\").innerText \u003d \"Video no encontrado\";\n        document.getElementById(\"videoFrame\").style.display \u003d \"none\";\n        return;\n    }\n\n    // Mostrar video principal\n    document.getElementById(\"videoTitle\").innerText \u003d currentVideo.name;\n    document.getElementById(\"videoFrame\").src \u003d currentVideo.link;\n\n    // Renderizar lista lateral\n    const listContainer \u003d document.getElementById(\"playlistVideos\");\n    listContainer.innerHTML \u003d \"\";\n\n    currentPlaylist.videos.forEach(v \u003d\u003e {\n        const item \u003d document.createElement(\"div\");\n        item.className \u003d \"video-list-item\";\n        item.onclick \u003d () \u003d\u003e window.location.href \u003d `videos.html?video\u003d${v.id}`;\n        item.innerHTML \u003d `\u003cdiv class\u003d\"video-name\"\u003e▶️ ${v.name}\u003c/div\u003e`;\n        listContainer.appendChild(item);\n    });\n}\n\n// Ejecutar solo si estamos en videos.html\nif (document.getElementById(\"videoFrame\")) {\n    loadVideoPage();\n}\n",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 75
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/resources/static/js/main.js",
+      "timestamp": 1763612262507,
+      "startOffset": 8312,
+      "endOffset": 9650,
+      "codeContent": "function getEmbedUrl(link) {\n  if (!link) return \u0027\u0027;\n\n  try {\n    const url \u003d new URL(link);\n    const host \u003d url.hostname.replace(\u0027www.\u0027, \u0027\u0027).toLowerCase();\n\n    // YouTube: watch?v\u003dID  o youtu.be/ID  o ya embed\n    if (host.includes(\u0027youtube.com\u0027)) {\n      // si ya es /embed/...\n      if (url.pathname.startsWith(\u0027/embed/\u0027)) return url.href;\n      // parámetro v\n      const vid \u003d url.searchParams.get(\u0027v\u0027);\n      if (vid) return `https://www.youtube.com/embed/${vid}`;\n      // otras rutas (ej: /v/ID)\n      const parts \u003d url.pathname.split(\u0027/\u0027);\n      const maybeId \u003d parts.pop() || parts.pop();\n      if (maybeId) return `https://www.youtube.com/embed/${maybeId}`;\n    }\n    if (host \u003d\u003d\u003d \u0027youtu.be\u0027) {\n      const id \u003d url.pathname.replace(\u0027/\u0027, \u0027\u0027);\n      if (id) return `https://www.youtube.com/embed/${id}`;\n    }\n\n    // Vimeo (ejemplo)\n    if (host.includes(\u0027vimeo.com\u0027)) {\n      // vimeo.com/ID  o player.vimeo.com/video/ID\n      if (url.pathname.startsWith(\u0027/video/\u0027)) return url.href;\n      const parts \u003d url.pathname.split(\u0027/\u0027);\n      const id \u003d parts.pop() || parts.pop();\n      if (id) return `https://player.vimeo.com/video/${id}`;\n    }\n\n    // Si ya es un .embed u otro dominio que permita iframe, devuélvelo tal cual\n    return link;\n  } catch (e) {\n    return link; // si no es una URL válida, devolver tal cual\n  }\n}",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 39
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/resources/static/js/main.js",
+      "timestamp": 1763612864158,
+      "startOffset": 6727,
+      "endOffset": 10047,
+      "codeContent": "  like\n            fav\n          }\n        }\n      }\n    }`;\n\n    const res \u003d await fetch(GRAPHQL_URL, {\n        method: \u0027POST\u0027,\n        headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n        body: JSON.stringify({ query })\n    });\n\n    const data \u003d await res.json();\n    const allPlaylists \u003d data.data.userById?.playlists || [];\n\n    let currentVideo \u003d null;\n    let currentPlaylist \u003d null;\n\n    for (const pl of allPlaylists) {\n        const match \u003d pl.videos.find(v \u003d\u003e v.id \u003d\u003d\u003d videoId);\n        if (match) {\n            currentVideo \u003d match;\n            currentPlaylist \u003d pl;\n            break;\n        }\n    }\n\n    if (!currentVideo) {\n        document.getElementById(\"videoTitle\").innerText \u003d \"Video no encontrado\";\n        document.getElementById(\"videoFrame\").style.display \u003d \"none\";\n        return;\n    }\n\n    // Mostrar título y video\n    document.getElementById(\"videoTitle\").innerText \u003d currentVideo.name;\n\n    const iframe \u003d document.getElementById(\"videoFrame\");\n    const embedUrl \u003d getEmbedUrl(currentVideo.link);\n    iframe.src \u003d embedUrl;\n\n    const fallbackDiv \u003d document.getElementById(\u0027videoFallback\u0027);\n    fallbackDiv.innerHTML \u003d `\u003ca href\u003d\"${currentVideo.link}\" target\u003d\"_blank\" rel\u003d\"noopener noreferrer\"\u003eAbrir video en nueva pestaña\u003c/a\u003e`;\n\n    // Mostrar likes y favoritos\n    document.getElementById(\"likeCount\").innerText \u003d currentVideo.like ?? 0;\n    if (currentVideo.fav) {\n        document.getElementById(\"favBtn\").classList.add(\"active\");\n    }\n\n    // Like\n    document.getElementById(\"likeBtn\").addEventListener(\"click\", async () \u003d\u003e {\n        const query \u003d `\n        mutation {\n          likeVideo(userId: \"${user.id}\", playlistId: \"${currentPlaylist.id}\", videoId: \"${currentVideo.id}\") {\n            like\n          }\n        }`;\n\n        const res \u003d await fetch(GRAPHQL_URL, {\n            method: \u0027POST\u0027,\n            headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n            body: JSON.stringify({ query })\n        });\n\n        const result \u003d await res.json();\n        const updatedLike \u003d result.data.likeVideo?.like ?? currentVideo.like;\n        document.getElementById(\"likeCount\").innerText \u003d updatedLike;\n    });\n\n    // Favorito\n    document.getElementById(\"favBtn\").addEventListener(\"click\", async () \u003d\u003e {\n        const query \u003d `\n        mutation {\n          toggleFavorite(userId: \"${user.id}\", playlistId: \"${currentPlaylist.id}\", videoId: \"${currentVideo.id}\") {\n            fav\n          }\n        }`;\n\n        const res \u003d await fetch(GRAPHQL_URL, {\n            method: \u0027POST\u0027,\n            headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n            body: JSON.stringify({ query })\n        });\n\n        const result \u003d await res.json();\n        const isFav \u003d result.data.toggleFavorite?.fav ?? currentVideo.fav;\n        document.getElementById(\"favBtn\").classList.toggle(\"active\", isFav);\n    });\n\n    // Lista lateral de videos\n    const listContainer \u003d document.getElementById(\"playlistVideos\");\n    listContainer.innerHTML \u003d \"\";\n\n    currentPlaylist.videos.forEach(v \u003d\u003e {\n        const item \u003d document.createElement(\"div\");\n        item.className \u003d \"video-list-item\";\n        item.onclick \u003d () \u003d\u003e window.location.href \u003d `video.html?video\u003d${v.id}`;\n        item.innerHTML \u003d `\u003cdiv class\u003d\"video-name\"\u003e▶️ ${v.name}\u003c/div\u003e`;\n        listContainer.appendChild(item);\n    });\n}\n",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 103
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/resources/static/js/main.js",
+      "timestamp": 1763612871336,
+      "startOffset": 10048,
+      "endOffset": 10287,
+      "codeContent": "function getEmbedUrl(link) {\n    if (link.includes(\"youtube.com/watch?v\u003d\")) {\n        const videoId \u003d link.split(\"v\u003d\")[1];\n        return `https://www.youtube.com/embed/${videoId}`;\n    }\n    return link; // fallback para otros formatos\n}\n",
+      "aiProbability": 70,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 8
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/resources/static/js/main.js",
+      "timestamp": 1763613471386,
+      "startOffset": 29,
+      "endOffset": 11521,
+      "codeContent": "// URL de tu backend GraphQL\nconst GRAPHQL_URL \u003d \u0027/graphql\u0027;\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Helpers de sesión \u003d\u003d\u003d\u003d\u003d\u003d\nfunction setUser(user) {\n    localStorage.setItem(\u0027user\u0027, JSON.stringify(user));\n}\n\nfunction getUser() {\n    return JSON.parse(localStorage.getItem(\u0027user\u0027));\n}\n\nfunction logout() {\n    localStorage.removeItem(\u0027user\u0027);\n    window.location.href \u003d \u0027login.html\u0027;\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Registro \u003d\u003d\u003d\u003d\u003d\u003d\ndocument.getElementById(\u0027registerForm\u0027)?.addEventListener(\u0027submit\u0027, async e \u003d\u003e {\n    e.preventDefault();\n    const username \u003d document.getElementById(\u0027regUsername\u0027).value;\n    const password \u003d document.getElementById(\u0027regPassword\u0027).value;\n\n    const query \u003d `\n    mutation {\n      register(username: \"${username}\", password: \"${password}\") {\n        id\n        username\n      }\n    }\n  `;\n\n    const res \u003d await fetch(GRAPHQL_URL, {\n        method: \u0027POST\u0027,\n        headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n        body: JSON.stringify({ query })\n    });\n\n    const data \u003d await res.json();\n    if (data.data.register) {\n        setUser(data.data.register);\n        window.location.href \u003d \u0027login.html\u0027;\n    } else {\n        alert(\u0027Error al registrar\u0027);\n    }\n});\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Login \u003d\u003d\u003d\u003d\u003d\u003d\ndocument.getElementById(\u0027loginForm\u0027)?.addEventListener(\u0027submit\u0027, async e \u003d\u003e {\n    e.preventDefault();\n    const username \u003d document.getElementById(\u0027loginUsername\u0027).value;\n    const password \u003d document.getElementById(\u0027loginPassword\u0027).value;\n\n    const query \u003d `\n    query {\n      login(username: \"${username}\", password: \"${password}\") {\n        id\n        username\n      }\n    }\n  `;\n\n    const res \u003d await fetch(GRAPHQL_URL, {\n        method: \u0027POST\u0027,\n        headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n        body: JSON.stringify({ query })\n    });\n\n    const data \u003d await res.json();\n    const user \u003d data.data.login;\n    if (user) {\n        setUser(user);\n        window.location.href \u003d \u0027index.html\u0027;\n    } else {\n        alert(\u0027Credenciales inválidas\u0027);\n    }\n});\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Home \u003d\u003d\u003d\u003d\u003d\u003d\nif (document.getElementById(\u0027username\u0027)) {\n    const user \u003d getUser();\n    if (!user) {\n        window.location.href \u003d \u0027login.html\u0027;\n    } else {\n        document.getElementById(\u0027username\u0027).innerText \u003d user.username;\n    }\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Playlists \u003d\u003d\u003d\u003d\u003d\u003d\n\n\nlet selectedPlaylistId \u003d null;\n\n// Helpers de sesión\n\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Modales \u003d\u003d\u003d\u003d\u003d\u003d\nfunction openPlaylistModal() {\n    document.getElementById(\u0027playlistModal\u0027).style.display \u003d \u0027flex\u0027;\n}\nfunction closePlaylistModal() {\n    document.getElementById(\u0027playlistModal\u0027).style.display \u003d \u0027none\u0027;\n}\nfunction openVideoModal(playlistId) {\n    selectedPlaylistId \u003d playlistId;\n    document.getElementById(\u0027videoModal\u0027).style.display \u003d \u0027flex\u0027;\n}\nfunction closeVideoModal() {\n    document.getElementById(\u0027videoModal\u0027).style.display \u003d \u0027none\u0027;\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Crear Playlist \u003d\u003d\u003d\u003d\u003d\u003d\nasync function createPlaylist() {\n    const user \u003d getUser();\n    const name \u003d document.getElementById(\u0027playlistName\u0027).value;\n\n    const query \u003d `\n    mutation {\n      addPlaylist(userId: \"${user.id}\", name: \"${name}\") {\n        id\n        name\n      }\n    }\n  `;\n\n    const res \u003d await fetch(GRAPHQL_URL, {\n        method: \u0027POST\u0027,\n        headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n        body: JSON.stringify({ query })\n    });\n\n    const data \u003d await res.json();\n    if (data.data.addPlaylist) {\n        closePlaylistModal();\n        loadPlaylists();\n    }\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Crear Video \u003d\u003d\u003d\u003d\u003d\u003d\nasync function createVideo() {\n    const user \u003d getUser();\n    const name \u003d document.getElementById(\u0027videoName\u0027).value;\n    const link \u003d document.getElementById(\u0027videoLink\u0027).value;\n\n    const query \u003d `\n    mutation {\n      addVideo(userId: \"${user.id}\", playlistId: \"${selectedPlaylistId}\", name: \"${name}\", link: \"${link}\") {\n        id\n        name\n        link\n      }\n    }\n  `;\n\n    const res \u003d await fetch(GRAPHQL_URL, {\n        method: \u0027POST\u0027,\n        headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n        body: JSON.stringify({ query })\n    });\n\n    const data \u003d await res.json();\n    if (data.data.addVideo) {\n        closeVideoModal();\n        loadPlaylists();\n    }\n}\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Render Playlists \u003d\u003d\u003d\u003d\u003d\u003d\nasync function loadPlaylists() {\n    const user \u003d getUser();\n    if (!user) {\n        window.location.href \u003d \u0027login.html\u0027;\n        return;\n    }\n\n    const query \u003d `\n    query {\n      userById(id: \"${user.id}\") {\n        id\n        username\n        playlists {\n          id\n          name\n          videos {\n            id\n            name\n            link\n          }\n        }\n      }\n    }\n  `;\n\n    const res \u003d await fetch(GRAPHQL_URL, {\n        method: \u0027POST\u0027,\n        headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n        body: JSON.stringify({ query })\n    });\n\n    const data \u003d await res.json();\n    console.log(\"Respuesta GraphQL:\", data); // 👈 para depurar\n\n    if (!data.data.userById) {\n        document.getElementById(\u0027playlists\u0027).innerHTML \u003d \"\u003cp\u003eNo hay playlists aún\u003c/p\u003e\";\n        return;\n    }\n\n    const playlists \u003d data.data.userById.playlists || [];\n    const container \u003d document.getElementById(\u0027playlists\u0027);\n    container.innerHTML \u003d \u0027\u0027;\n\n    playlists.forEach(pl \u003d\u003e {\n        const card \u003d document.createElement(\u0027div\u0027);\n        card.className \u003d \u0027playlist-card\u0027;\n\n        const videosHtml \u003d pl.videos \u0026\u0026 pl.videos.length \u003e 0\n            ? pl.videos.map(v \u003d\u003e `\n      \u003cdiv class\u003d\"video-item\" onclick\u003d\"goToVideo(\u0027${v.id}\u0027)\"\u003e\n        \u003cdiv class\u003d\"video-name\"\u003e${v.name}\u003c/div\u003e\n        \u003cdiv class\u003d\"video-link\"\u003e${v.link}\u003c/div\u003e\n      \u003c/div\u003e\n    `).join(\u0027\u0027)\n            : \"\u003cp\u003eEsta playlist aún no tiene videos\u003c/p\u003e\";\n\n\n        card.innerHTML \u003d `\n      \u003cdiv class\u003d\"playlist-title\"\u003e\n        ${pl.name}\n        \u003cspan style\u003d\"cursor:pointer; color:#cc0000; font-size:20px;\" onclick\u003d\"openVideoModal(\u0027${pl.id}\u0027)\"\u003e+\u003c/span\u003e\n      \u003c/div\u003e\n      \u003cdiv class\u003d\"videos-list\"\u003e${videosHtml}\u003c/div\u003e\n    `;\n\n        card.addEventListener(\u0027click\u0027, (e) \u003d\u003e {\n            if (e.target.tagName !\u003d\u003d \u0027SPAN\u0027) {\n                const videosDiv \u003d card.querySelector(\u0027.videos-list\u0027);\n                videosDiv.classList.toggle(\u0027active\u0027);\n            }\n        });\n\n        container.appendChild(card);\n    });\n}\n\n\nif (document.getElementById(\u0027playlists\u0027)) {\n    loadPlaylists();\n}\n\nfunction goToVideo(videoId) {\n    window.location.href \u003d `video.html?video\u003d${videoId}`;\n}\n\n\n// \u003d\u003d\u003d\u003d\u003d\u003d Reproductor de video \u003d\u003d\u003d\u003d\u003d\u003d\nasync function loadVideoPage() {\n    const videoId \u003d new URLSearchParams(window.location.search).get(\"video\");\n    const user \u003d getUser();\n    if (!user || !videoId) {\n        window.location.href \u003d \u0027login.html\u0027;\n        return;\n    }\n\n    // Consulta GraphQL para traer playlists y videos del usuario\n    const query \u003d `\n    query {\n      userById(id: \"${user.id}\") {\n        playlists {\n          id\n          name\n          videos {\n            id\n            name\n            link\n            like\n            fav\n          }\n        }\n      }\n    }`;\n\n    const res \u003d await fetch(GRAPHQL_URL, {\n        method: \u0027POST\u0027,\n        headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n        body: JSON.stringify({ query })\n    });\n\n    const data \u003d await res.json();\n    const allPlaylists \u003d data.data.userById?.playlists || [];\n\n    // Buscar el video y su playlist\n    let currentVideo \u003d null;\n    let currentPlaylist \u003d null;\n\n    for (const pl of allPlaylists) {\n        const match \u003d pl.videos.find(v \u003d\u003e v.id \u003d\u003d\u003d videoId);\n        if (match) {\n            currentVideo \u003d match;\n            currentPlaylist \u003d pl;\n            break;\n        }\n    }\n\n    if (!currentVideo) {\n        document.getElementById(\"videoTitle\").innerText \u003d \"Video no encontrado\";\n        document.getElementById(\"videoFrame\").style.display \u003d \"none\";\n        return;\n    }\n\n    // Mostrar título y video\n    document.getElementById(\"videoTitle\").innerText \u003d currentVideo.name;\n\n    const iframe \u003d document.getElementById(\"videoFrame\");\n    const embedUrl \u003d getEmbedUrl(currentVideo.link);\n    iframe.src \u003d embedUrl;\n\n    // Fallback: enlace directo\n    const fallbackDiv \u003d document.getElementById(\u0027videoFallback\u0027);\n    fallbackDiv.innerHTML \u003d `\u003ca href\u003d\"${currentVideo.link}\" target\u003d\"_blank\" rel\u003d\"noopener noreferrer\"\u003eAbrir video en nueva pestaña\u003c/a\u003e`;\n\n    // Mostrar likes y favoritos\n    document.getElementById(\"likeCount\").innerText \u003d currentVideo.like ?? 0;\n    if (currentVideo.fav) {\n        document.getElementById(\"favBtn\").classList.add(\"active\");\n    }\n\n    // Like\n    document.getElementById(\"likeBtn\").addEventListener(\"click\", async () \u003d\u003e {\n        const query \u003d `\n        mutation {\n          likeVideo(userId: \"${user.id}\", playlistId: \"${currentPlaylist.id}\", videoId: \"${currentVideo.id}\") {\n            like\n          }\n        }`;\n\n        const res \u003d await fetch(GRAPHQL_URL, {\n            method: \u0027POST\u0027,\n            headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n            body: JSON.stringify({ query })\n        });\n\n        const result \u003d await res.json();\n        const updatedLike \u003d result.data.likeVideo?.like ?? currentVideo.like;\n        document.getElementById(\"likeCount\").innerText \u003d updatedLike;\n    });\n\n    // Favorito\n    document.getElementById(\"favBtn\").addEventListener(\"click\", async () \u003d\u003e {\n        const query \u003d `\n        mutation {\n          toggleFavorite(userId: \"${user.id}\", playlistId: \"${currentPlaylist.id}\", videoId: \"${currentVideo.id}\") {\n            fav\n          }\n        }`;\n\n        const res \u003d await fetch(GRAPHQL_URL, {\n            method: \u0027POST\u0027,\n            headers: { \u0027Content-Type\u0027: \u0027application/json\u0027 },\n            body: JSON.stringify({ query })\n        });\n\n        const result \u003d await res.json();\n        const isFav \u003d result.data.toggleFavorite?.fav ?? currentVideo.fav;\n        document.getElementById(\"favBtn\").classList.toggle(\"active\", isFav);\n    });\n\n    // Lista lateral de videos\n    const listContainer \u003d document.getElementById(\"playlistVideos\");\n    listContainer.innerHTML \u003d \"\";\n\n    currentPlaylist.videos.forEach(v \u003d\u003e {\n        const item \u003d document.createElement(\"div\");\n        item.className \u003d \"video-list-item\";\n        item.onclick \u003d () \u003d\u003e window.location.href \u003d `video.html?video\u003d${v.id}`;\n        item.innerHTML \u003d `\u003cdiv class\u003d\"video-name\"\u003e▶️ ${v.name}\u003c/div\u003e`;\n        listContainer.appendChild(item);\n    });\n}\n\n// Ejecutar solo si estamos en video.html\nif (document.getElementById(\"videoFrame\")) {\n    loadVideoPage();\n}\n\n// Helper para transformar links en embed\nfunction getEmbedUrl(link) {\n    if (!link) return \u0027\u0027;\n    try {\n        const url \u003d new URL(link);\n        const host \u003d url.hostname.replace(\u0027www.\u0027, \u0027\u0027).toLowerCase();\n\n        // YouTube\n        if (host.includes(\u0027youtube.com\u0027)) {\n            if (url.pathname.startsWith(\u0027/embed/\u0027)) return url.href;\n            const vid \u003d url.searchParams.get(\u0027v\u0027);\n            if (vid) return `https://www.youtube.com/embed/${vid}`;\n            const parts \u003d url.pathname.split(\u0027/\u0027);\n            const maybeId \u003d parts.pop() || parts.pop();\n            if (maybeId) return `https://www.youtube.com/embed/${maybeId}`;\n        }\n        if (host \u003d\u003d\u003d \u0027youtu.be\u0027) {\n            const id \u003d url.pathname.replace(\u0027/\u0027, \u0027\u0027);\n            if (id) return `https://www.youtube.com/embed/${id}`;\n        }\n\n        // Vimeo\n        if (host.includes(\u0027vimeo.com\u0027)) {\n            if (url.pathname.startsWith(\u0027/video/\u0027)) return url.href;\n            const parts \u003d url.pathname.split(\u0027/\u0027);\n            const id \u003d parts.pop() || parts.pop();\n            if (id) return `https://player.vimeo.com/video/${id}`;\n        }\n\n        return link;\n    } catch (e) {\n        return link;\n    }\n}\n",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 419
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/VideoTest.java",
+      "timestamp": 1763616385152,
+      "startOffset": 0,
+      "endOffset": 57,
+      "codeContent": "package webapp.progAvanzada;\n\npublic class VideoTest {\n}\n",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 5
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/VideoTest.java",
+      "timestamp": 1763616388235,
+      "startOffset": 30,
+      "endOffset": 1901,
+      "codeContent": "import org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.*;\n\nimport java.util.ArrayList;\n\npublic class VideoTests {\n\n    @Test\n    void testRegisterCreatesUser() {\n        User u \u003d new User();\n        u.setUsername(\"lautaro\");\n        u.setPassword(\"123\");\n        u.setPlaylists(new ArrayList\u003c\u003e());\n\n        assertEquals(\"lautaro\", u.getUsername());\n        assertEquals(\"123\", u.getPassword());\n        assertTrue(u.getPlaylists().isEmpty());\n    }\n\n    @Test\n    void testAddPlaylist() {\n        User u \u003d new User();\n        u.setPlaylists(new ArrayList\u003c\u003e());\n\n        Playlist pl \u003d new Playlist();\n        pl.setId(\"p1\");\n        pl.setName(\"Favoritos\");\n        pl.setVideos(new ArrayList\u003c\u003e());\n\n        u.getPlaylists().add(pl);\n\n        assertEquals(1, u.getPlaylists().size());\n        assertEquals(\"Favoritos\", u.getPlaylists().get(0).getName());\n    }\n\n    @Test\n    void testAddVideoInitializesLikeAndFav() {\n        Playlist pl \u003d new Playlist();\n        pl.setVideos(new ArrayList\u003c\u003e());\n\n        Video v \u003d new Video();\n        v.setId(\"v1\");\n        v.setName(\"Video test\");\n        v.setLink(\"https://youtu.be/abc123\");\n        v.setLike(0);\n        v.setFav(false);\n\n        pl.getVideos().add(v);\n\n        assertEquals(1, pl.getVideos().size());\n        assertEquals(0, v.getLike());\n        assertFalse(v.isFav());\n    }\n\n    @Test\n    void testLikeVideoIncrementsCounter() {\n        Video v \u003d new Video();\n        v.setLike(0);\n\n        v.setLike(v.getLike() + 1);\n        assertEquals(1, v.getLike());\n\n        v.setLike(v.getLike() + 1);\n        assertEquals(2, v.getLike());\n    }\n\n    @Test\n    void testToggleFavoriteSwitchesState() {\n        Video v \u003d new Video();\n        v.setFav(false);\n\n        v.setFav(!v.isFav());\n        assertTrue(v.isFav());\n\n        v.setFav(!v.isFav());\n        assertFalse(v.isFav());\n    }\n}\n",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 79
+    },
+    {
+      "filePath": "/VideoTest.java",
+      "timestamp": 1763616416971,
+      "startOffset": 116,
+      "endOffset": 136,
+      "codeContent": "IntellijIdeaRulezzz ",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/VideoTest.java",
+      "timestamp": 1763616445071,
+      "startOffset": 30,
+      "endOffset": 1901,
+      "codeContent": "import org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.*;\n\nimport java.util.ArrayList;\n\npublic class VideoTests {\n\n    @Test\n    void testRegisterCreatesUser() {\n        User u \u003d new User();\n        u.setUsername(\"lautaro\");\n        u.setPassword(\"123\");\n        u.setPlaylists(new ArrayList\u003c\u003e());\n\n        assertEquals(\"lautaro\", u.getUsername());\n        assertEquals(\"123\", u.getPassword());\n        assertTrue(u.getPlaylists().isEmpty());\n    }\n\n    @Test\n    void testAddPlaylist() {\n        User u \u003d new User();\n        u.setPlaylists(new ArrayList\u003c\u003e());\n\n        Playlist pl \u003d new Playlist();\n        pl.setId(\"p1\");\n        pl.setName(\"Favoritos\");\n        pl.setVideos(new ArrayList\u003c\u003e());\n\n        u.getPlaylists().add(pl);\n\n        assertEquals(1, u.getPlaylists().size());\n        assertEquals(\"Favoritos\", u.getPlaylists().get(0).getName());\n    }\n\n    @Test\n    void testAddVideoInitializesLikeAndFav() {\n        Playlist pl \u003d new Playlist();\n        pl.setVideos(new ArrayList\u003c\u003e());\n\n        Video v \u003d new Video();\n        v.setId(\"v1\");\n        v.setName(\"Video test\");\n        v.setLink(\"https://youtu.be/abc123\");\n        v.setLike(0);\n        v.setFav(false);\n\n        pl.getVideos().add(v);\n\n        assertEquals(1, pl.getVideos().size());\n        assertEquals(0, v.getLike());\n        assertFalse(v.isFav());\n    }\n\n    @Test\n    void testLikeVideoIncrementsCounter() {\n        Video v \u003d new Video();\n        v.setLike(0);\n\n        v.setLike(v.getLike() + 1);\n        assertEquals(1, v.getLike());\n\n        v.setLike(v.getLike() + 1);\n        assertEquals(2, v.getLike());\n    }\n\n    @Test\n    void testToggleFavoriteSwitchesState() {\n        Video v \u003d new Video();\n        v.setFav(false);\n\n        v.setFav(!v.isFav());\n        assertTrue(v.isFav());\n\n        v.setFav(!v.isFav());\n        assertFalse(v.isFav());\n    }\n}\n",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 79
+    },
+    {
+      "filePath": "/VideoTests.java",
+      "timestamp": 1763616472789,
+      "startOffset": 95,
+      "endOffset": 115,
+      "codeContent": "IntellijIdeaRulezzz ",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/VideoTests.java",
+      "timestamp": 1763616486069,
+      "startOffset": 64,
+      "endOffset": 105,
+      "codeContent": "import webapp.progAvanzada.entities.User;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/VideoTests.java",
+      "timestamp": 1763616487966,
+      "startOffset": 142,
+      "endOffset": 202,
+      "codeContent": "import static org.junit.jupiter.api.Assertions.assertEquals;",
+      "aiProbability": 70,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/VideoTests.java",
+      "timestamp": 1763616493917,
+      "startOffset": 65,
+      "endOffset": 110,
+      "codeContent": "import webapp.progAvanzada.entities.Playlist;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/VideoTests.java",
+      "timestamp": 1763616496832,
+      "startOffset": 152,
+      "endOffset": 194,
+      "codeContent": "import webapp.progAvanzada.entities.Video;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/ProyectoTests.java",
+      "timestamp": 1763616909541,
+      "startOffset": 34,
+      "endOffset": 75,
+      "codeContent": "import webapp.progAvanzada.entities.User;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/ProyectoTests.java",
+      "timestamp": 1763616910910,
+      "startOffset": 105,
+      "endOffset": 165,
+      "codeContent": "import static org.junit.jupiter.api.Assertions.assertEquals;",
+      "aiProbability": 70,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/ProyectoTests.java",
+      "timestamp": 1763616913665,
+      "startOffset": 167,
+      "endOffset": 225,
+      "codeContent": "import static org.junit.jupiter.api.Assertions.assertTrue;",
+      "aiProbability": 70,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/ProyectoTests.java",
+      "timestamp": 1763616916457,
+      "startOffset": 76,
+      "endOffset": 118,
+      "codeContent": "import webapp.progAvanzada.entities.Video;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "/ProyectoTests.java",
+      "timestamp": 1763616926441,
+      "startOffset": 0,
+      "endOffset": 28,
+      "codeContent": "package webapp.progAvanzada;",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "/ProyectoTests.java",
+      "timestamp": 1763617631536,
+      "startOffset": 232,
+      "endOffset": 252,
+      "codeContent": "IntellijIdeaRulezzz ",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/test/java/webapp/progAvanzada/ProyectoTests.java",
+      "timestamp": 1763617725507,
+      "startOffset": 72,
+      "endOffset": 1728,
+      "codeContent": "org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.boot.test.context.SpringBootTest;\nimport webapp.progAvanzada.entities.User;\nimport webapp.progAvanzada.entities.Playlist;\nimport webapp.progAvanzada.entities.Video;\nimport webapp.progAvanzada.repo.UserRepository;\nimport webapp.progAvanzada.resolver.UserController;\n\nimport static org.junit.jupiter.api.Assertions.*;\n\n@SpringBootTest\npublic class BackendIntegrationTests {\n\n    @Autowired\n    private UserController userController;\n\n    @Autowired\n    private UserRepository userRepository;\n\n    @Test\n    void testFullFlow() {\n        // Registro\n        User user \u003d userController.register(\"lautaro\", \"123\");\n        assertNotNull(user.getId());\n        assertEquals(\"lautaro\", user.getUsername());\n        assertTrue(user.getPlaylists().isEmpty());\n\n        // Crear playlist\n        Playlist playlist \u003d userController.addPlaylist(user.getId(), \"Favoritos\");\n        assertEquals(\"Favoritos\", playlist.getName());\n        assertTrue(playlist.getVideos().isEmpty());\n\n        // Agregar video\n        Video video \u003d userController.addVideo(user.getId(), playlist.getId(), \"Video test\", \"https://youtu.be/abc123\");\n        assertEquals(\"Video test\", video.getName());\n        assertEquals(0, video.getLike());\n        assertFalse(video.isFav());\n\n        // Like\n        Video liked \u003d userController.likeVideo(user.getId(), playlist.getId(), video.getId());\n        assertEquals(1, liked.getLike());\n\n        // Toggle favorito\n        Video toggled \u003d userController.toggleFavorite(user.getId(), playlist.getId(), video.getId());\n        assertTrue(toggled.isFav());\n    }\n}",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 47
     }
   ],
   "toolStats": {
     "AI Assistant": {
-      "usageCount": 44,
-      "totalLines": 184
+      "usageCount": 76,
+      "totalLines": 1429
     }
   }
 }

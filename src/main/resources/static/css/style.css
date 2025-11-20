@@ -1,32 +1,485 @@
+/* Fondo general */
 body {
+    background-color: #c5c5c5; /* gris claro */
+    min-height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
 }
 
-.sidebar {
-    width: 200px;
-    background-color: #202020;
+body.login-page,
+body.register-page {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;   /* centra horizontal */
+    align-items: center;       /* centra vertical */
+}
+
+/* Contenedor centrado */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    padding: 2rem;
+    animation: fadeIn 0.6s ease-in-out;
+    text-align: center;
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Inputs */
+.auth-container input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Botón estilo YouTube */
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #cc0000, #ff4444);
     color: white;
-    height: 100vh;
-    padding: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background 0.2s;
+}
+
+.auth-container button:hover {
+    background: linear-gradient(135deg, #a00000, #cc0000);
+}
+
+/* Enlace de alternancia */
+.auth-container p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-container a {
+    color: #cc0000;
+    text-decoration: none;
+}
+
+.auth-container a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sidebar oscuro */
+
+/* Título del menú */
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* Ítems del menú */
+.sidebar {
+    width: 240px; /* más grueso */
+    background-color: #202020;
+    color: #fff;
     position: fixed;
+    top: 0; bottom: 0; left: 0;
+    padding: 20px 0;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 .sidebar a {
-    display: block;
-    color: white;
+    width: 90%;
+    padding: 10px 15px;
+    margin: 6px 0;
     text-decoration: none;
-    margin: 15px 0;
+    color: #ddd;
+    font-size: 15px;
+    border-radius: 10px;
+    transition: background-color 0.2s, color 0.2s;
+    box-sizing: border-box;
 }
 
 .sidebar a:hover {
-    background-color: #333;
-    padding-left: 5px;
+    background-color: #383838;
+    color: #fff;
+}
+/* Ítem activo (opcional si querés marcar la página actual) */
+.sidebar a.active {
+    background-color: #505050;
+    color: #fff;
 }
 
+/* Íconos opcionales */
+.sidebar a i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+/* Contenido */
 .content {
     margin-left: 220px;
-    padding: 20px;
-    flex: 1;
+    padding: 30px;
 }
+
+/* Grid de playlists */
+.playlists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 1200px;
+}
+
+/* Tarjeta de playlist */
+.playlist-card {
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.playlist-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+.playlist-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Lista de videos */
+.videos-list {
+    display: none;
+    margin-top: 12px;
+    text-align: left;
+}
+
+.videos-list.active {
+    display: block;
+}
+
+.video-item {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.video-item:hover {
+    background-color: #e0e0e0;
+}
+
+.video-name {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.video-name::before {
+    content: "▶️";
+    margin-right: 8px;
+}
+
+.video-link {
+    font-size: 12px;
+    color: #666;
+    margin-left: 24px;
+}
+
+/* Botón flotante */
+.fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #cc0000, #ff4444);
+    color: white;
+    font-size: 32px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+}
+
+/* Modales */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    width: 340px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-content input {
+    width: 100%;
+    box-sizing: border-box; /* 👈 evita que el padding rompa el layout */
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #cc0000, #ff4444);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background 0.2s;
+}
+
+.modal-content button:hover {
+    background: linear-gradient(135deg, #a00000, #cc0000);
+}
+
+
+/* Botones estilo YouTube */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 20px;
+    border: none;
+    background-color: #cc0000;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #e60000;
+}
+
+/* Formularios */
+form {
+    margin-top: 20px;
+}
+
+input {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.video-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    padding: 2rem;
+    animation: fadeIn 0.6s ease-in-out;
+    text-align: center;
+}
+
+.video-container h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.video-frame {
+    width: 100%;
+    height: 450px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+
+.video-container button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #cc0000, #ff4444);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.video-container button:hover {
+    background: linear-gradient(135deg, #a00000, #cc0000);
+}
+
+/* Layout de la página de video */
+.video-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px;
+    background-color: #f5f5f5;
+}
+
+/* Contenedor principal del video */
+.video-main {
+    flex: 2;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.video-main h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.video-frame {
+    width: 100%;
+    height: 450px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Sidebar de videos relacionados */
+.video-sidebar {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.video-sidebar h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* Lista de videos */
+.video-list-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.video-list-item:hover {
+    background-color: #e0e0e0;
+}
+
+.video-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.video-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.video-actions .btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #cc0000;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.video-actions .btn:hover {
+    background-color: #e60000;
+}
+
+#favBtn.active {
+    background-color: #ffcc00;
+    color: #333;
+}
+.back-to-playlists {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #444;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-back:hover {
+    background-color: #666;
+}
+
+
+
+

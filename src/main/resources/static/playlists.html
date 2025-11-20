@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Playlists</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="playlists-page">
 
+<div class="sidebar">
+  <h2>Menu</h2>
+  <a href="index.html"><i class="icon-home"></i> Home</a>
+  <a href="playlists.html" class="active"><i class="icon-playlist"></i> Playlists</a>
+  <a href="#" onclick="logout()"><i class="icon-logout"></i> Logout</a>
+</div>
+
+  <div class="content">
+    <h1>Mis Playlists</h1>
+    <div id="playlists" class="playlists-grid"></div>
+  </div>
+
+  <!-- Botón flotante para crear playlist -->
+  <button class="fab" onclick="openPlaylistModal()">+</button>
+
+  <!-- Modal para crear playlist -->
+  <div id="playlistModal" class="modal">
+    <div class="modal-content">
+      <h3>Crear Playlist</h3>
+      <input type="text" id="playlistName" placeholder="Nombre de la playlist" required>
+      <button onclick="createPlaylist()">Crear</button>
+      <button onclick="closePlaylistModal()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modal para agregar video -->
+  <div id="videoModal" class="modal">
+    <div class="modal-content">
+      <h3>Agregar Video</h3>
+      <input type="text" id="videoName" placeholder="Nombre del video" required>
+      <input type="text" id="videoLink" placeholder="Link del video" required>
+      <button onclick="createVideo()">Agregar</button>
+      <button onclick="closeVideoModal()">Cancelar</button>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
 </body>
 </html>

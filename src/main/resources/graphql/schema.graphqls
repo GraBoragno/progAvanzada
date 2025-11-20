@@ -25,7 +25,7 @@ type Query {
 }
 
 type Mutation {
-    register(username: String!, password: String): User
+    register(username: String!, password: String!): User
     addPlaylist(userId: ID!, name: String!): Playlist
     addVideo(userId: ID!, playlistId: ID!, name: String!, link: String!): Video
     likeVideo(userId: ID!, playlistId: ID!, videoId: ID!): Video

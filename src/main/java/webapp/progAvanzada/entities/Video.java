@@ -10,6 +10,6 @@ public class Video {
     private String id;
     private String name;
     private String link;
-    private int likes;
-    private boolean favorite;
+    private int like;
+    private boolean fav;
 }

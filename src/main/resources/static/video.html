@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Reproductor</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="video-page">
+    <div class="video-main">
+        <h2 id="videoTitle">Cargando video...</h2>
+        <iframe id="videoFrame" class="video-frame"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                title="Reproductor de video"></iframe>
+        <div class="video-actions">
+            <button id="likeBtn" class="btn">👍 <span id="likeCount">0</span></button>
+            <button id="favBtn" class="btn">⭐ Favorito</button>
+        </div>
+        <div id="videoFallback" style="margin-top: 10px;"></div>
+    </div>
+    <div class="video-sidebar">
+        <div class="back-to-playlists">
+            <a href="playlists.html" class="btn-back">⬅ Volver a playlists</a>
+        </div>
+        <h3>Más videos</h3>
+        <div id="playlistVideos" class="video-list"></div>
+    </div>
 
+</div>
+<script src="js/main.js"></script>
 </body>
+
 </html>

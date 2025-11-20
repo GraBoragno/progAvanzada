@@ -1,0 +1,33 @@
+type Video {
+    id: ID!
+    name: String!
+    link: String!
+    like: Int
+    fav: Boolean!
+}
+
+type User {
+    id: ID!
+    username: String!
+    playlists: [Playlist!]!
+}
+
+type Playlist {
+    id: ID!
+    name: String!
+    videos: [Video!]!
+}
+
+type Query {
+    users: [User!]!
+    userById(id: ID!): User
+    login(username: String!, password: String!): User
+}
+
+type Mutation {
+    register(username: String!, password: String): User
+    addPlaylist(userId: ID!, name: String!): Playlist
+    addVideo(userId: ID!, playlistId: ID!, name: String!, link: String!): Video
+    likeVideo(userId: ID!, playlistId: ID!, videoId: ID!): Video
+    toggleFavorite(userId: ID!, playlistId: ID!, videoId: ID!): Video
+}

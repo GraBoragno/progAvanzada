@@ -1111,12 +1111,56 @@
       "aiTool": "AI Assistant",
       "detectionMethod": "REALTIME_SPEED_ANALYSIS",
       "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/service/UserService.java",
+      "timestamp": 1763679680410,
+      "startOffset": 0,
+      "endOffset": 67,
+      "codeContent": "package webapp.progAvanzada.service;\n\npublic class UserService {\n}\n",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 5
+    },
+    {
+      "filePath": "/UserController.java",
+      "timestamp": 1763680029359,
+      "startOffset": 3891,
+      "endOffset": 3911,
+      "codeContent": "IntellijIdeaRulezzz ",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/resolver/UserController.java",
+      "timestamp": 1763680088636,
+      "startOffset": 3932,
+      "endOffset": 3956,
+      "codeContent": " user, Playlist playlist",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 1
+    },
+    {
+      "filePath": "/UserController.java",
+      "timestamp": 1763680218835,
+      "startOffset": 3560,
+      "endOffset": 3592,
+      "codeContent": "IntellijIdeaRulezzz \n        //P",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 2
     }
   ],
   "toolStats": {
     "AI Assistant": {
-      "usageCount": 101,
-      "totalLines": 1504
+      "usageCount": 105,
+      "totalLines": 1513
     }
   }
 }

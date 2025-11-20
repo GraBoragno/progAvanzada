@@ -78,6 +78,7 @@ public class UserController {
         newVideo.setFav(false);
         newVideo.setLike(0);
 
+        //Playlist playlist = filterPlaylist(user, playlistId);
         Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
         if (playlist.getVideos() == null) {
             playlist.setVideos(new ArrayList<>());
@@ -92,6 +93,7 @@ public class UserController {
     public Video likeVideo(@Argument String userId, @Argument String playlistId, @Argument String videoId)
     {
         User user = userRepository.findById(userId).orElse(null);
+        //Playlist playlist = filterPlaylist(user, playlistId);
         Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
         Video video = playlist.getVideos().stream().filter(v -> v.getId().equals(videoId)).findFirst().get();
         video.setLike(video.getLike() + 1);
@@ -103,11 +105,22 @@ public class UserController {
     public Video toggleFavorite(@Argument String userId, @Argument String playlistId, @Argument String videoId)
     {
         User user = userRepository.findById(userId).orElse(null);
+        //Playlist playlist = filterPlaylist(user, playlistId);
         Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
         Video video = playlist.getVideos().stream().filter(v -> v.getId().equals(videoId)).findFirst().get();
         video.setFav(!video.isFav());
         userRepository.save(user);
         return video;
+    }
+
+    private static Playlist filterPlaylist(User user, String playlistId)
+    {
+        return user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
+    }
+
+    private static Video videoFilter(Playlist playlist, String videoId)
+    {
+        return playlist.getVideos().stream().filter(v -> v.getId().equals(videoId)).findFirst().get();
     }
 
 }

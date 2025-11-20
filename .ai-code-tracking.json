@@ -836,12 +836,210 @@
       "aiTool": "AI Assistant",
       "detectionMethod": "REALTIME_SPEED_ANALYSIS",
       "lineCount": 47
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763618383107,
+      "startOffset": 427,
+      "endOffset": 477,
+      "codeContent": "public java.lang.String getId() {\n    return id;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763618383118,
+      "startOffset": 467,
+      "endOffset": 527,
+      "codeContent": "public void setId(java.lang.String id) {\n    this.id \u003d id;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763618383129,
+      "startOffset": 517,
+      "endOffset": 579,
+      "codeContent": "public java.lang.String getUsername() {\n    return username;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763618383140,
+      "startOffset": 569,
+      "endOffset": 653,
+      "codeContent": "public void setUsername(java.lang.String username) {\n    this.username \u003d username;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763618383150,
+      "startOffset": 643,
+      "endOffset": 705,
+      "codeContent": "public java.lang.String getPassword() {\n    return password;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763618383160,
+      "startOffset": 695,
+      "endOffset": 779,
+      "codeContent": "public void setPassword(java.lang.String password) {\n    this.password \u003d password;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763618383169,
+      "startOffset": 769,
+      "endOffset": 870,
+      "codeContent": "public java.util.List\u003cwebapp.progAvanzada.entities.Playlist\u003e getPlaylists() {\n    return playlists;\n}",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/User.java",
+      "timestamp": 1763618383184,
+      "startOffset": 831,
+      "endOffset": 956,
+      "codeContent": "public void setPlaylists(java.util.List\u003cwebapp.progAvanzada.entities.Playlist\u003e playlists) {\n    this.playlists \u003d playlists;\n}",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Playlist.java",
+      "timestamp": 1763618397343,
+      "startOffset": 311,
+      "endOffset": 361,
+      "codeContent": "public java.lang.String getId() {\n    return id;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Playlist.java",
+      "timestamp": 1763618397351,
+      "startOffset": 351,
+      "endOffset": 411,
+      "codeContent": "public void setId(java.lang.String id) {\n    this.id \u003d id;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Playlist.java",
+      "timestamp": 1763618397359,
+      "startOffset": 401,
+      "endOffset": 455,
+      "codeContent": "public java.lang.String getName() {\n    return name;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Playlist.java",
+      "timestamp": 1763618397366,
+      "startOffset": 445,
+      "endOffset": 513,
+      "codeContent": "public void setName(java.lang.String name) {\n    this.name \u003d name;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Playlist.java",
+      "timestamp": 1763618397375,
+      "startOffset": 503,
+      "endOffset": 595,
+      "codeContent": "public java.util.List\u003cwebapp.progAvanzada.entities.Video\u003e getVideos() {\n    return videos;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Playlist.java",
+      "timestamp": 1763618397388,
+      "startOffset": 556,
+      "endOffset": 666,
+      "codeContent": "public void setVideos(java.util.List\u003cwebapp.progAvanzada.entities.Video\u003e videos) {\n    this.videos \u003d videos;\n}",
+      "aiProbability": 95,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Video.java",
+      "timestamp": 1763618407332,
+      "startOffset": 334,
+      "endOffset": 384,
+      "codeContent": "public java.lang.String getId() {\n    return id;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Video.java",
+      "timestamp": 1763618407341,
+      "startOffset": 374,
+      "endOffset": 434,
+      "codeContent": "public void setId(java.lang.String id) {\n    this.id \u003d id;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Video.java",
+      "timestamp": 1763618407350,
+      "startOffset": 424,
+      "endOffset": 478,
+      "codeContent": "public java.lang.String getName() {\n    return name;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
+    },
+    {
+      "filePath": "C:/Users/lauta/OneDrive/Escritorio/proyectos/progAvanzada-main/src/main/java/webapp/progAvanzada/entities/Video.java",
+      "timestamp": 1763618407359,
+      "startOffset": 468,
+      "endOffset": 536,
+      "codeContent": "public void setName(java.lang.String name) {\n    this.name \u003d name;\n}",
+      "aiProbability": 90,
+      "aiTool": "AI Assistant",
+      "detectionMethod": "REALTIME_SPEED_ANALYSIS",
+      "lineCount": 3
     }
   ],
   "toolStats": {
     "AI Assistant": {
-      "usageCount": 76,
-      "totalLines": 1429
+      "usageCount": 94,
+      "totalLines": 1483
     }
   }
 }

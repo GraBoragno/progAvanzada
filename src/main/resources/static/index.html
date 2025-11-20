@@ -13,8 +13,32 @@
 </div>
 
 <div class="content">
-    <h1>Bienvenido, <span id="username"></span></h1>
-    <p>Presentación estilo YouTube/Twitch: Aquí podrías mostrar videos destacados, banners o texto hardcodeado.</p>
+    <h1>🎉 Bienvenido, <span id="username"></span> 🎮</h1>
+
+    <div class="banner">
+        <img src="img/banner-streaming.jpg" alt="Banner principal" class="banner-img">
+        <p class="banner-text">¡Explora lo mejor del entretenimiento digital!</p>
+    </div>
+
+    <section class="featured-videos">
+        <h2>🔥 Videos Destacados</h2>
+        <div class="video-grid">
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video 1" allowfullscreen></iframe>
+                <p>Top Momentos del Mes</p>
+            </div>
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/3fumBcKC6RE" title="Video 2" allowfullscreen></iframe>
+                <p>Lo Más Visto en Gaming</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="live-status">
+        <h2>🔴 En Vivo Ahora</h2>
+        <p>¡No te pierdas las transmisiones en vivo de tus creadores favoritos!</p>
+        <button onclick="window.location.href='https://www.twitch.tv/'">Ver en Twitch</button>
+    </section>
 </div>
 
 <script src="js/main.js"></script>

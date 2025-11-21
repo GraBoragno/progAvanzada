@@ -78,8 +78,8 @@ public class UserController {
         newVideo.setFav(false);
         newVideo.setLike(0);
 
-        //Playlist playlist = filterPlaylist(user, playlistId);
-        Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
+        Playlist playlist = filterPlaylist(user, playlistId);
+        //Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
         if (playlist.getVideos() == null) {
             playlist.setVideos(new ArrayList<>());
         }
@@ -93,8 +93,8 @@ public class UserController {
     public Video likeVideo(@Argument String userId, @Argument String playlistId, @Argument String videoId)
     {
         User user = userRepository.findById(userId).orElse(null);
-        //Playlist playlist = filterPlaylist(user, playlistId);
-        Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
+        Playlist playlist = filterPlaylist(user, playlistId);
+        //Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
         Video video = playlist.getVideos().stream().filter(v -> v.getId().equals(videoId)).findFirst().get();
         video.setLike(video.getLike() + 1);
         userRepository.save(user);
@@ -105,8 +105,8 @@ public class UserController {
     public Video toggleFavorite(@Argument String userId, @Argument String playlistId, @Argument String videoId)
     {
         User user = userRepository.findById(userId).orElse(null);
-        //Playlist playlist = filterPlaylist(user, playlistId);
-        Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
+        Playlist playlist = filterPlaylist(user, playlistId);
+        //Playlist playlist = user.getPlaylists().stream().filter(p -> p.getId().equals(playlistId)).findFirst().get();
         Video video = playlist.getVideos().stream().filter(v -> v.getId().equals(videoId)).findFirst().get();
         video.setFav(!video.isFav());
         userRepository.save(user);
